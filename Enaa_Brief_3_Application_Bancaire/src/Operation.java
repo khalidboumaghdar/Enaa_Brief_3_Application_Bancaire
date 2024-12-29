@@ -300,4 +300,13 @@ public class Operation {
 
         System.out.println("Virement effectué avec succès !");
     }
+     private static void AfficherOpreration() {
+        if (oprations.isEmpty()) {
+            System.out.println("Aucun client trouvé.");
+        } else {
+            for (Operation operation : oprations) {
+                System.out.println(operation);
+            }
+        }
+    }
 }
