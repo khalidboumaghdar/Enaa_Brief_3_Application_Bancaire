@@ -33,8 +33,8 @@ public class CompteCourant extends Compte {
                     GestionCompteCourant();
                     break;
                 case 2:
-                    
-                    break;
+                   CompteEpargne.GestionCompteEpargne();
+                   break;
                 default:
                     System.out.println("Choix invalide !");
             }
