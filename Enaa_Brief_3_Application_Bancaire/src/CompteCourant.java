@@ -58,7 +58,7 @@ public class CompteCourant extends Compte {
                     AjouterCompteCourant();
                     break;
                 case 2:
-                    
+                     AfficherCompteCourant();
                     break;
                 default:
                     System.out.println("Choix invalide !");
@@ -94,6 +94,24 @@ public class CompteCourant extends Compte {
         } catch (InputMismatchException e) {
             System.out.println("Erreur : Veuillez entrer des informations valides !");
             scanner.nextLine();
+        }
+    }
+      public static Client recherClient(String proprietaire) {
+        for (Client client : Client.clientArrayList) {
+            if (client.getNom().equalsIgnoreCase(proprietaire)) {
+                return client;
+            }
+        }
+        return null;
+    }
+
+    private static void AfficherCompteCourant() {
+        if (compteCourants.isEmpty()) {
+            System.out.println("Aucun Compte Courant trouvé.");
+        } else {
+            for (CompteCourant compteCourant : compteCourants) {
+                System.out.println(compteCourant);
+            }
         }
     }
 }
