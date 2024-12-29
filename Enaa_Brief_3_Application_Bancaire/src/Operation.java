@@ -91,6 +91,7 @@ public class Operation {
                 ", compteEpargne=" + compteEpargne +
                 '}';
     }
+
     public  static  void GestionOperation(){
         System.out.println("----------Gestion Operation---------");
         System.out.println("1-Effectuer un dépôt sur un compte");
@@ -233,5 +234,25 @@ public class Operation {
         Operation operation = new Operation("Retrait", montant, date, null, compteEpargne);
         oprations.add(operation);
         System.out.println("Retrait effectué avec succès.");
+    }
+    public static CompteCourant recherCompteCourant(int numero) {
+        for (CompteCourant compteCourant : CompteCourant.compteCourants) {
+            if (compteCourant.getNumero()== numero) {
+                return compteCourant;
+            }
+        }
+        return null;
+
+
+    }
+      public static CompteEpargne recherCompteEpargne(int numero) {
+        for (CompteEpargne compteEpargne : CompteEpargne.compteEpargnes) {
+            if (compteEpargne.getNumero()== numero) {
+                return compteEpargne;
+            }
+        }
+        return null;
+
+
     }
 }
