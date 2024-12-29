@@ -91,4 +91,88 @@ public class Operation {
                 ", compteEpargne=" + compteEpargne +
                 '}';
     }
+    public  static  void GestionOperation(){
+        System.out.println("----------Gestion Operation---------");
+        System.out.println("1-Effectuer un dépôt sur un compte");
+        System.out.println("2-Effectuer un retrait .");
+        System.out.println("3-Effectuer un virement entre deux comptes.");
+        System.out.println("4-Afficher lhistorique des opérations pour un compte.");
+        int choix;
+        choix= sc.nextInt();
+        switch(choix){
+            case 1:
+                EffectuerDepot();
+                break;
+            case 2:
+                EffectuerRetrait();
+                break;
+            case 3:
+                EffectuerVirement();
+                break;
+            case 4:
+                AfficherOpreration();
+                break;
+            default:
+                System.out.println("Choix invalide");
+        }
+    }
+    public static void EffectuerDepot(){
+        System.out.println("----------Effectuer Dépôt---------");
+        System.out.println("Montant : ");
+        double montant = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("Date : ");
+        String date = sc.nextLine();
+        System.out.println("--------- Compte ---------- ");
+        System.out.println("1-Compte Courant");
+        System.out.println("2-Compte Epargne");
+        System.out.println("Saisez votre choix :  ");
+        int choix = sc.nextInt();
+        switch(choix){
+            case 1:
+                DepotCompteCourant(montant,date);
+                break;
+            case 2:
+                DipotCompteEpargne(montant,date);
+                break;
+            default:
+                System.out.println("Choix invalide");
+        }
+    }
+    public static void DepotCompteCourant(double montant,String date){
+        System.out.println("Enter le numero de comptes : ");
+        int numeroCompte = sc.nextInt();
+        CompteCourant compteCourant = recherCompteCourant(numeroCompte);
+        if (compteCourant == null) {
+            System.out.println("Compte n'existe pas avec numero : " + numeroCompte);
+            return;
+        }
+
+        if (montant > compteCourant.getSolde()) {
+            System.out.println("Fonds insuffisants pour le retrait.");
+            return;
+        }
+        compteCourant.setSolde(compteCourant.getSolde() + montant);
+        Operation operation = new Operation("Dipot", montant, date, compteCourant, null);
+        oprations.add(operation);
+        System.out.println("Dipot effectué avec succès.");
+    }
+     public  static  void DipotCompteEpargne(double montant,String date){
+        System.out.println("Enter le numero de comptes : ");
+        int numeroCompte = sc.nextInt();
+        CompteEpargne compteEpargne = recherCompteEpargne(numeroCompte);
+        if (compteEpargne == null) {
+            System.out.println("Compte n'existe pas avec numero : " + numeroCompte);
+            return;
+        }
+
+        if (montant > compteEpargne.getSolde()) {
+            System.out.println("Fonds insuffisants pour le retrait.");
+            return;
+        }
+        compteEpargne.setSolde(compteEpargne.getSolde() + montant);
+        Operation operation = new Operation("Dipot", montant, date, null, compteEpargne);
+        oprations.add(operation);
+        System.out.println("Dipot effectué avec succès.");
+    }
 }
