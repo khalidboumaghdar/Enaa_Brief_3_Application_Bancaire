@@ -139,6 +139,29 @@ public class Operation {
                 System.out.println("Choix invalide");
         }
     }
+     public static void EffectuerRetrait() {
+        System.out.println("----------Effectuer Retrait---------");
+        System.out.println("Montant : ");
+        double montant = sc.nextDouble();
+        sc.nextLine();
+        System.out.println("Date : ");
+        String date = sc.nextLine();
+        System.out.println("--------- Compte ---------- ");
+        System.out.println("1-Compte Courant");
+        System.out.println("2-Compte Epargne");
+        System.out.println("Saisez votre choix :  ");
+        int choix = sc.nextInt();
+        switch(choix){
+            case 1:
+                RetraitCompteCourant(montant,date);
+                break;
+            case 2:
+                RetraitCompteEpargne(montant,date);
+                break;
+            default:
+                System.out.println("Choix invalide");
+        }
+    }
     public static void DepotCompteCourant(double montant,String date){
         System.out.println("Enter le numero de comptes : ");
         int numeroCompte = sc.nextInt();
@@ -174,5 +197,41 @@ public class Operation {
         Operation operation = new Operation("Dipot", montant, date, null, compteEpargne);
         oprations.add(operation);
         System.out.println("Dipot effectué avec succès.");
+    }
+     public static void RetraitCompteCourant(double montant,String date){
+        System.out.println("Enter le numero de comptes : ");
+        int numeroCompte = sc.nextInt();
+        CompteCourant compteCourant = recherCompteCourant(numeroCompte);
+        if (compteCourant == null) {
+            System.out.println("Compte n'existe pas avec numero : " + numeroCompte);
+            return;
+        }
+
+        if (montant > compteCourant.getSolde()) {
+            System.out.println("Fonds insuffisants pour le retrait.");
+            return;
+        }
+        compteCourant.setSolde(compteCourant.getSolde() - montant);
+        Operation operation = new Operation("Retrait", montant, date, compteCourant, null);
+        oprations.add(operation);
+        System.out.println("Retrait effectué avec succès.");
+    }
+    public  static  void RetraitCompteEpargne(double montant,String date){
+        System.out.println("Enter le numero de comptes : ");
+        int numeroCompte = sc.nextInt();
+        CompteEpargne compteEpargne = recherCompteEpargne(numeroCompte);
+        if (compteEpargne == null) {
+            System.out.println("Compte n'existe pas avec numero : " + numeroCompte);
+            return;
+        }
+
+        if (montant > compteEpargne.getSolde()) {
+            System.out.println("Fonds insuffisants pour le retrait.");
+            return;
+        }
+        compteEpargne.setSolde(compteEpargne.getSolde() - montant);
+        Operation operation = new Operation("Retrait", montant, date, null, compteEpargne);
+        oprations.add(operation);
+        System.out.println("Retrait effectué avec succès.");
     }
 }
