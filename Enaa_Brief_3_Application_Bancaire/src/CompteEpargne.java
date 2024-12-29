@@ -34,8 +34,8 @@ public class CompteEpargne extends Compte {
                     AjouterCompteEpargne();
                     break;
                 case 2:
-                    
-                    break;
+                    AfficherCompteEpargne();
+                   break;
                 default:
                     System.out.println("Choix invalide !");
             }
@@ -81,6 +81,14 @@ public class CompteEpargne extends Compte {
         }
         return null;
     }
-
+ private static void AfficherCompteEpargne() {
+        if (compteEpargnes.isEmpty()) {
+            System.out.println("Aucun Compte Epargne trouvé.");
+        } else {
+            for (CompteEpargne compteEpargne : compteEpargnes) {
+                System.out.println(compteEpargne);
+            }
+        }
+    }
     
 }
