@@ -255,4 +255,49 @@ public class Operation {
 
 
     }
+    public static void EffectuerVirement() {
+        System.out.println("----------Effectuer un Virement---------");
+
+        System.out.println("Montant : ");
+        double montant = sc.nextDouble();
+        sc.nextLine();
+
+        if (montant <= 0) {
+            System.out.println("Le montant doit être positif.");
+            return;
+        }
+
+        System.out.println("Numéro de compte source : ");
+        int numeroCompteSource = sc.nextInt();
+        System.out.println("Numéro de compte cible : ");
+        int numeroCompteCible = sc.nextInt();
+
+        CompteCourant compteSource = recherCompteCourant(numeroCompteSource);
+        CompteCourant compteCible = recherCompteCourant(numeroCompteCible);
+
+        if (compteSource == null) {
+            System.out.println("Compte  introuvable.");
+            return;
+        }
+        if (compteCible == null) {
+            System.out.println("Compte  introuvable.");
+            return;
+        }
+
+        if (montant > compteSource.getSolde()) {
+            System.out.println("solde > de montant ");
+            return;
+        }
+
+        compteSource.setSolde(compteSource.getSolde() - montant);
+        compteCible.setSolde(compteCible.getSolde() + montant);
+
+        Operation operationDebit = new Operation("Virement salaf", montant, java.time.LocalDate.now().toString(), compteSource, null);
+        Operation operationCredit = new Operation("Virement tsalaf", montant, java.time.LocalDate.now().toString(), compteCible, null);
+
+        oprations.add(operationDebit);
+        oprations.add(operationCredit);
+
+        System.out.println("Virement effectué avec succès !");
+    }
 }
